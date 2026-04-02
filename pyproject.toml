@@ -1,0 +1,45 @@
+[project]
+name = "ssafy_ai_challenge"
+version = "0.1.0"
+requires-python = ">=3.12"
+dependencies = [
+    # torch 제외한 공통 패키지는 여기
+    "transformers",
+    "datasets",
+    "accelerate",
+    "numpy",
+    "pandas",
+    "scikit-learn",
+    "matplotlib",
+    "seaborn",
+    "tqdm",
+    "Pillow",
+]
+
+# ─── torch는 extras로 분리 ─────────────────────────────────────
+[project.optional-dependencies]
+cpu   = ["torch", "torchvision", "torchaudio"]
+cu130 = ["torch", "torchvision", "torchaudio"]
+
+# cpu와 cu130은 동시에 설치 불가 (충돌 방지)
+[tool.uv]
+conflicts = [
+    [{ extra = "cpu" }, { extra = "cu130" }],
+]
+
+# ─── cu130 extra일 때만 PyTorch CUDA 인덱스 사용 ─────────────
+[tool.uv.sources]
+torch = [
+    { index = "pytorch-cu130", extra = "cu130" },
+]
+torchvision = [
+    { index = "pytorch-cu130", extra = "cu130" },
+]
+torchaudio = [
+    { index = "pytorch-cu130", extra = "cu130" },
+]
+
+[[tool.uv.index]]
+name = "pytorch-cu130"
+url = "https://download.pytorch.org/whl/cu130"
+explicit = true
