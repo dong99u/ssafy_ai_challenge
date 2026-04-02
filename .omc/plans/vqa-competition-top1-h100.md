@@ -1,11 +1,26 @@
-# VQA Competition TOP-1 Delta Plan v6.1 -- H100 80GB RALPLAN-DR
+# VQA Competition TOP-1 Delta Plan v7 -- H100 80GB FINAL
 
 **Created:** 2026-04-02
-**Revised:** 2026-04-02 (v6.1 -- Architect+Critic consensus: mean-logprob normalization, Day-1 model smoke test, AutoModel prerequisite, mid-epoch checkpoint, inference time budget)
+**Revised:** 2026-04-02 (v7 -- Qwen3.5-9B upgrade, EDA-first data strategy, 24-type router, SDPA, Google Drive mount, 20 submissions/day)
 **Deadline:** 2026-04-06 (4 days remaining)
 **Hardware:** Colab H100 (80GB VRAM) -- removes ALL VRAM constraints
-**Base:** `ssafy_vqa_qwen25vl_h100_topscore_notebook_colab.ipynb`
-**Objective:** Push from current strong baseline to TOP-1 accuracy on SSAFY 15th AI Challenge
+**Data:** Google Drive 마운트 (HuggingFace 다운로드 불필요)
+**Base:** `ssafy_vqa_qwen3vl_h100_topscore.ipynb`
+**Objective:** TOP-1 accuracy on SSAFY 15th AI Challenge
+
+---
+
+## v7 핵심 변경 (v6.1 대비)
+
+| 항목 | v6.1 | v7 | 이유 |
+|------|------|-----|------|
+| **Primary Model** | Qwen3-VL-8B-Instruct | **Qwen3.5-9B** | 네이티브 멀티모달, visual understanding 상위 |
+| **Fallback Model** | Qwen2.5-VL-7B | **Qwen3-VL-8B-Instruct** | 검증된 VL 모델 |
+| **Attention** | flash_attention_2 + SDPA | **SDPA only** | flash-attn 설치 너무 오래 걸림 |
+| **Data Source** | HuggingFace download | **Google Drive mount** | 이미 마운트됨 |
+| **External Data** | TrashNet + TACO only | **Dev 최적화 + TrashNet/TACO + AI Hub 조건부** | EDA 결과 기반 targeted 강화 |
+| **Question Types** | 6개 분류 | **24개 세부 분류** | discussion에서 확인된 세부 분포 |
+| **Submissions** | 보수적 (2-3개) | **하루 20회 가능** | leaderboard A/B testing 가능 |
 
 ---
 
@@ -21,9 +36,9 @@
 
 ### Decision Drivers (Top 3)
 
-1. **H100 80GB = quantization 불필요** -- `train_use_4bit=True`를 `False`로 바꾸면 BF16 full precision training. 이것만으로 +1-3pp 기대 (quantization loss 제거). 코드 변경 1줄.
-2. **Batch size 1 -> 4~8 가능** -- effective batch size 32-64로 training stability 향상. gradient accumulation 줄여서 training 속도 ~4x 개선. 하루 6-8 full run 가능 = 더 많은 A/B 테스트.
-3. **Letter-level logprob -> Full-text logprob** -- 현재 `candidates=["a","b","c","d"]` 단일 토큰 scoring. Full choice text scoring은 모델이 답변 내용을 직접 평가 = 더 정확한 ranking.
+1. **Qwen3.5-9B 네이티브 멀티모달** -- Qwen3-VL-8B보다 visual understanding 벤치마크 상위. Early fusion 아키텍처 = 더 나은 vision-language alignment. 같은 Qwen family라 코드 변경 최소.
+2. **H100 80GB = BF16 + batch 4-8** -- quantization 불필요. training 4x 빠름. 하루 6-8 full run = 더 많은 A/B. **하루 20회 제출 가능** → leaderboard 기반 실시간 검증.
+3. **EDA-first 데이터 전략** -- material_general(test 23%)이 최대 카테고리. 먼저 per-type EDA로 약점 식별 → dev 데이터 최적화 + 기존 외부데이터 활용. AI Hub는 EDA 결과에 따라 조건부. 24개 세부 질문 유형별 최적화.
 
 ### Viable Options (3)
 
@@ -129,16 +144,19 @@ lora_r = 32, lora_alpha = 64, lora_dropout = 0.05
 
 ### ROI Assessment (Honest Expected Gains)
 
-| Delta | Expected Gain | Confidence | Risk | Time Cost | H100 Dependency |
-|-------|--------------|------------|------|-----------|-----------------|
-| Delta 1: BF16 + Batch + Resolution | +1-3pp | HIGH | LOW | ~1h config | YES -- core unlock |
-| Delta 2: Epoch + Scheduler + Permutations | +1-2pp | MEDIUM-HIGH | LOW | ~1h config + retrain | Partially (더 빠른 retrain) |
-| Delta 3: Full-text logprob scoring | +1-2pp | MEDIUM | LOW | ~2h coding | YES (VRAM for larger batch inference) |
-| Delta 4: Qwen3-VL-8B upgrade | +2-5pp | MEDIUM | MEDIUM | ~3h total | YES (BF16 8B = ~16GB, 4bit 불필요) |
-| Delta 5: Ensemble optimization + Stretch | +0.5-1.5pp | MEDIUM-LOW | LOW | ~2h | No |
-| **Combined realistic gain** | **+4-10pp** | | | | |
+| Delta | Expected Gain | Confidence | Risk | Time Cost |
+|-------|--------------|------------|------|-----------|
+| Delta 1: BF16 + Batch + Resolution | +1-3pp | HIGH | LOW | ~1h |
+| Delta 2: Epoch + Scheduler + LoRA + Permutations | +1-2pp | MEDIUM-HIGH | LOW | ~3h (A/B tests) |
+| Delta 3: Full-text logprob scoring | +1-2pp | MEDIUM | LOW | ~3h |
+| **Delta 4: Qwen3.5-9B upgrade** | **+3-8pp** | **MEDIUM-HIGH** | **MEDIUM** | **~2h (Day 1 smoke test)** |
+| **Delta 5: EDA-driven data optimization + 24-type router** | **+2-4pp** | **MEDIUM** | **LOW** | **~3h** |
+| Delta 6: Ensemble optimization + Stretch | +0.5-1.5pp | MEDIUM-LOW | LOW | ~2h |
+| **Combined realistic gain** | **+6-15pp** | | | |
 
-**Honesty note:** 기존 노트북은 이미 고도로 최적화됨. Delta 1(BF16 전환)이 가장 확실한 개선이고, Delta 4(모델 업그레이드)가 가장 큰 잠재력. 나머지는 marginal gains.
+**v7 핵심 변경:** Delta 4를 Day 1 최우선으로 격상 (모델 결정이 모든 후속 최적화에 영향). Delta 5 신규 (EDA-driven data optimization + 24-type router). 하루 20회 제출 가능하므로 leaderboard A/B testing 적극 활용.
+
+**Honesty note:** Qwen3.5-9B 업그레이드가 가장 큰 lever (+3-8pp). Dev 데이터 최적화 + EDA-driven targeted 강화로 +2-4pp. AI Hub는 EDA 결과 필요 시에만. 나머지는 marginal gains.
 
 ---
 
@@ -303,20 +321,23 @@ def score_fulltext_with_logprob(
 
 ---
 
-### Delta 4: Qwen3-VL-8B Model Upgrade (MEDIUM PRIORITY -- Conditional)
+### Delta 4: Qwen3.5-9B Model Upgrade (HIGHEST PRIORITY -- Day 1 Smoke Test)
 
-**Rationale:** v5 plan의 Delta 1과 동일하나, H100에서는 VRAM 걱정 불필요. BF16으로 8B 모델도 ~16GB로 로드. 진짜 risk는 Korean 성능만.
+**Rationale:** Qwen3.5-9B는 Qwen3-VL-8B보다 **네이티브 멀티모달 아키텍처**로 visual understanding이 우월. Competition discussion에서도 Qwen3.5 벤치마크가 공유됨. H100 80GB에서 BF16 학습 가능.
 
-**H100에서의 변경 (v5 대비 간소화):**
-- ~~VRAM smoke test~~ -> 불필요. 80GB에서 8B BF16은 여유
-- ~~4-bit quantization 유지~~ -> 불필요. BF16 full precision
-- ~~Resolution fallback~~ -> 불필요. 1536px training도 가능
+**Qwen3.5-9B vs Qwen3-VL-8B:**
+- 네이티브 멀티모달 (early fusion) vs 별도 VL encoder
+- MMMU-Pro, MathVision, OmniDocBench 등에서 Qwen3-VL 상회
+- 같은 Qwen family → `AutoModelForImageTextToText`로 자동 resolve
+- 201개 언어 지원 (한국어 포함)
 
-**VRAM Budget (BF16, Qwen3-VL-8B):**
-- Model weights BF16: ~16GB
-- LoRA + Optimizer: ~1.5GB
+**VRAM Budget (BF16, Qwen3.5-9B):**
+- Model weights BF16: ~18GB
+- LoRA + Optimizer: ~2GB
 - Activations (batch=4, 1536px, grad ckpt): ~25-35GB
-- **Total: ~42-52GB / 80GB -- 충분**
+- **Total: ~45-55GB / 80GB -- 충분**
+
+**Fallback chain:** Qwen3.5-9B → Qwen3-VL-8B → Qwen2.5-VL-7B
 
 **Prerequisite (Day 1에 미리 준비 -- Architect consensus + ChatGPT 노트북 검증):**
 
@@ -400,7 +421,97 @@ CFG.upsample_ocr_text = 3   # OCR 질문을 3배 복제 (전체의 1.1%뿐이므
 
 ---
 
-### Delta 5: Ensemble Optimization + Stretch (LOWEST PRIORITY)
+### Delta 5: EDA-Driven Data Optimization + 24-Type Question Router (HIGH PRIORITY)
+
+**Rationale:** 20GB+ AI Hub 다운로드보다 **EDA로 약점 파악 → 기존 데이터(dev 4,413 + TrashNet/TACO) 최적화**가 시간 ROI 훨씬 높음.
+
+**5a: Per-Type EDA → 약점 식별 (Day 1 저녁)**
+
+Day 1 baseline 학습 후 validation에서 24개 세부 유형별 accuracy breakdown:
+
+```python
+# validation 후 실행
+for qtype in sorted(valid_pred_df["qtype_detail"].unique()):
+    mask = valid_pred_df["qtype_detail"] == qtype
+    acc = (valid_pred_df.loc[mask, "pred"] == valid_pred_df.loc[mask, "answer"]).mean()
+    n = mask.sum()
+    print(f"  {qtype:25s}  acc={acc:.3f}  n={n}")
+```
+
+→ 약한 유형 Top 3 식별 → Day 2부터 해당 유형만 targeted 개선
+
+**5b: Dev 데이터 최적화 (기존 데이터 더 잘 활용)**
+
+1. **Confidence-based gradient weight:**
+   ```python
+   # 현재: dev_shared_weight = 0.65 (고정)
+   # 개선: confidence에 비례하는 가중치
+   # 5/5 일치 → weight 0.95 (거의 확실)
+   # 4/5 일치 → weight 0.70
+   # 3/5 일치 (count만) → weight 0.40
+   ```
+
+2. **Soft label training (stretch):**
+   - 5명 annotator 분포를 soft distribution으로 변환
+   - [0.6, 0.4, 0, 0] 형태 → KL divergence loss
+   - 불확실한 샘플에서 더 robust한 학습
+
+3. **Dev >=3/5 non-count 조건부 사용:**
+   - EDA에서 특정 non-count 유형이 약하면 → 해당 유형의 >=3/5 dev 샘플 추가 (weight 0.35)
+   - A/B test 필수
+
+**5c: AI Hub는 조건부 (EDA 결과에 따라)**
+
+```
+IF material_general accuracy < 전체 평균 - 5pp:
+    → AI Hub 소수 카테고리만 다운로드 (~2-3GB)
+    → material 특화 synthetic VQA 생성
+ELSE:
+    → Skip. Dev + TrashNet/TACO로 충분.
+```
+
+**5b: 24개 세부 질문 유형 라우터**
+
+Discussion 그래프에서 확인된 24개 세부 유형으로 라우터 확장:
+
+```python
+# 현재 6개 → 24개로 확장
+def classify_question_detail(question: str) -> str:
+    # count 세부: count_bottle, count_cup, count_box, count_can, count_lid, count_general
+    # material 세부: material_general, material_package, material_cup, material_bottle, material_can
+    # object: object_type, majority_type, majority_general
+    # color 세부: color_lid, color_straw, color_general, color_label
+    # ocr 세부: brand_or_product, text_or_symbol, flavor
+    # other: recycling_class, position, other
+```
+
+**핵심:** Top 5 유형(material_general, object_type, count_bottle, count_general, count_cup)이 test의 65%.
+이 5개 유형에 특화된 system prompt + blend weight = 가장 높은 ROI.
+
+```python
+# 예시: 유형별 특화 system prompt
+SYSTEM_PROMPTS = {
+    "material_general": "너는 재활용 소재 전문가다. 유리, 플라스틱, 금속, 종이 등 재질을 정확히 판별한다...",
+    "count_bottle": "너는 병 개수 세기 전문가다. 플라스틱병, 유리병, 페트병을 구분하여 정확히 센다...",
+    "count_cup": "너는 컵 개수 세기 전문가다. 종이컵, 플라스틱컵, 텀블러를 구분하여 정확히 센다...",
+    ...
+}
+```
+
+**A/B Test:** 6-type vs 24-type 비교. >= 0.5pp 시 채택.
+
+**Acceptance Criteria:**
+- [ ] (조건부) EDA에서 material_general 약할 시 AI Hub 데이터 로드 + synthetic VQA 변환
+- [ ] 24-type classifier 구현 + validation set에서 분류 정확도 확인
+- [ ] Top 5 유형별 특화 system prompt 작성
+- [ ] A/B test: 6-type vs 24-type accuracy 비교
+- [ ] Leaderboard 제출로 실제 효과 확인 (20회/일 활용)
+
+**Estimated time:** ~3h (EDA 30min + dev 최적화 1h + 24-type router 1h + A/B 30min)
+
+---
+
+### Delta 6: Ensemble Optimization + Stretch (LOWEST PRIORITY)
 
 **Only attempt if Day 3 evening and Deltas 1-4 resolved.**
 
@@ -444,18 +555,33 @@ H100 batch size 4-8에서 1 epoch shared ≈ 20-40min (vs 16GB에서 ~2.5h).
 
 | Day | Block | Activity | Deliverable |
 |-----|-------|----------|-------------|
-| **Day 1** | 오전 | **Delta 1:** BF16 전환 + batch size 증가 + resolution 증가 + `AutoModelForImageTextToText` 전환. VRAM test. | BF16 training 성공 확인 |
-| | 오후 | **Delta 1 validation:** 7B BF16 1 epoch shared + 2 epoch count. Validation accuracy 기록. | BF16 baseline accuracy |
-| | 저녁 | **Delta 4 smoke test:** Qwen3-VL-8B BF16 1-epoch. 7B vs 8B 비교 → **모델 결정 (Go/No-Go).** | Model decision (Day 1에 확정) |
-| **Day 2** | 오전 | **Delta 2a/2b:** 선택된 모델에서 epochs A/B + cosine scheduler A/B. | Epoch/scheduler A/B results |
-| | 오후 | **Delta 2c + Delta 3:** Permutation A/B + full-text logprob(mean-normalized) 구현 + A/B. | Logprob/perm A/B results |
-| | 저녁 | **SAFE SUBMISSION #1** (Delta 1+2+3 best config, 선택된 모델). | First submission |
-| **Day 3** | 오전 | **Delta 4 full training** (if 8B GO): 선택된 best hyperparams로 8B full training (2-3 epochs). | Full-trained model |
-| | 오후 | **Delta 5a:** Ensemble weight optimization on validation set. | Optimized weights |
-| | 저녁 | **SUBMISSION #2** (best model + optimized ensemble). | Second submission |
-| **Day 4** | 오전 | **Delta 5b/5c:** Material expert adapter + TTA (stretch). | Stretch A/B results |
-| | 오후 | Final tuning + best config retrain. | Final model |
-| | 저녁 (마감) | **FINAL SUBMISSION**. Safety backup 30min before deadline. | Final submission |
+| **Day 1** | 오전 | **Delta 1+4 동시:** BF16 전환 + AutoModel + SDPA. **3-model smoke test** (Qwen3.5-9B vs Qwen3-VL-8B vs Qwen2.5-VL-7B, 각 1-epoch ~40min). | **모델 결정 확정** |
+| | 오후 | 선택된 모델로 full training (shared 2ep + count 3ep). | Full-trained baseline |
+| | 저녁 | Validation 평가 + **SUBMISSION #1-2** (baseline + 변형). Leaderboard 확인. | 첫 leaderboard 점수 |
+| **Day 2** | 오전 | **Delta 2:** A/B tests (LoRA r=64 vs r=32, cosine vs linear, epochs). 각각 leaderboard 제출. | A/B 결과 + leaderboard 검증 |
+| | 오후 | **Delta 5b:** Dev 데이터 최적화 (confidence gradient weight, 조건부 >=3/5 추가). | Dev 최적화 모델 |
+| | 저녁 | **SUBMISSION #3-6** (A/B winners + dev 최적화). | Leaderboard 검증 |
+| **Day 3** | 오전 | **Delta 5b:** 24-type question router 구현 + 유형별 특화 prompt. | 24-type router |
+| | 오후 | **Delta 3:** Full-text logprob (mean-normalized) 구현 + A/B. **Delta 6:** Ensemble weight optimization. | Logprob + ensemble 최적화 |
+| | 저녁 | **SUBMISSION #7-10** (각 improvement 별도 제출). Best config 확정. | Best config 확정 |
+| **Day 4** | 오전 | Best config로 final retrain (더 많은 데이터/epochs). 2nd model for ensemble (seed=123). | Final models |
+| | 오후 | 2-model ensemble 구성 + permutation inference. | Ensemble submission |
+| | 저녁 (마감) | **FINAL SUBMISSION** #15-20. Safety backup 30min 전. | Final submission |
+
+### Submission Strategy (20회/일 최대 활용)
+
+| Day | 제출 예산 | 용도 |
+|-----|----------|------|
+| Day 1 | 3-5회 | Baseline (7B, 8B, 9B variants) + leaderboard calibration |
+| Day 2 | 5-7회 | A/B winners (LoRA, scheduler, dev 최적화) |
+| Day 3 | 5-7회 | 24-type router, logprob, ensemble weight variants |
+| Day 4 | 5-8회 | Final ensemble, safety backups, last-minute tweaks |
+
+### 실전 환경 변경사항
+
+1. **Google Drive 마운트:** 데이터는 `/content/drive/MyDrive/...`에서 로드. HuggingFace 다운로드 코드 전부 삭제.
+2. **SDPA only:** `flash-attn` 설치 삭제 (너무 오래 걸림). H100에서 SDPA도 충분히 빠름.
+3. **AI Hub:** EDA 결과 material_general이 약할 때만 조건부 다운로드 (소수 카테고리, ~2-3GB)
 
 ### Time Budget (H100 기준)
 
@@ -511,45 +637,38 @@ H100 batch size 4-8에서 1 epoch shared ≈ 20-40min (vs 16GB에서 ~2.5h).
 
 ---
 
-## Decision Tree (H100 Adapted)
+## Decision Tree (v7 -- Qwen3.5 + EDA-first + 20 submissions/day)
 
 ```
-Day 1 오전-오후: Delta 1 -- BF16 Full Precision + AutoModel 전환
+Day 1 오전: 3-Model Smoke Test (각 ~40min, BF16 batch=4)
   |
-  +-- BF16 batch=4 성공 (거의 확실)
-  |     |
-  |     +-- batch=8 시도
-  |     |     +-- 성공: batch=8, accum=2 사용
-  |     |     +-- OOM: batch=4, accum=4 사용
-  |     |
-  |     +-- 7B BF16 1 epoch training 완료, baseline accuracy 기록
+  +-- Qwen3.5-9B → val accuracy A
+  +-- Qwen3-VL-8B → val accuracy B
+  +-- Qwen2.5-VL-7B → val accuracy C
   |
-  +-- Day 1 저녁: Delta 4 smoke test (40min)
-        |
-        +-- 8B accuracy >= 7B - 1pp: **GO 8B** → Day 2부터 모든 A/B를 8B 기반으로
-        +-- 8B accuracy < 7B - 1pp: **NO-GO** → 7B 유지, Delta 4 취소
-Day 2: Delta 2 + Delta 3 (선택된 모델 기반)
+  +-- Winner = max(A, B, C) → PRIMARY MODEL 확정
+  +-- Leaderboard 제출 #1-3 (각 모델 결과)
   |
-  +-- Delta 2a: epochs A/B (선택된 모델에서)
-  |     +-- epochs=2 > epochs=1 + 0.5pp: KEEP 2 epochs
-  |     +-- epochs=2 <= epochs=1 + 0.5pp: KEEP 1 epoch
-  +-- Delta 2b: Cosine scheduler A/B
-  +-- Delta 2c: Permutation count A/B
-  +-- Delta 3: Full-text logprob A/B (mean-normalized)
-  |
-  +-- Day 2 저녁: SAFE SUBMISSION #1 (Delta 1+2+3 best config, 선택된 모델)
+  +-- Day 1 오후: PRIMARY로 full training (shared 2ep + count 3ep) → 제출 #4-5
 
-Day 3: Delta 4 full training (if 8B GO) + Delta 5
+Day 2: A/B Tests + Dev 최적화 (leaderboard 검증)
   |
-  +-- 8B GO: Best hyperparams로 full training (2-3 epochs) -> SUBMISSION #2
-  +-- 8B NO-GO: 7B로 Delta 5 진행 -> SUBMISSION #2
-  +-- Delta 5a: Ensemble weight optimization
+  +-- 오전: LoRA r=64 vs r=32 + cosine vs linear → 제출 #6-8
+  +-- 오후: Dev confidence gradient weight + 조건부 >=3/5 추가 → 제출 #9-11
+  +-- 저녁: EDA 약점 기반 targeted 개선 → best config 중간 확정
+  +-- (IF material_general 약하면 → AI Hub 소수 카테고리 다운로드 시작)
 
-Day 4: Final
+Day 3: 24-Type Router + Logprob + Ensemble
   |
-  +-- Delta 5b/5c: Material expert / TTA (stretch)
-  +-- Final tuning + best config retrain
-  +-- FINAL SUBMISSION (deadline 30min 전)
+  +-- 오전: 24-type router + 유형별 특화 prompt → 제출 #12-13
+  +-- 오후: Full-text logprob (mean-norm) + ensemble weight opt → 제출 #14-16
+  +-- 저녁: Best config 최종 확정
+
+Day 4: Final Ensemble + Safety
+  |
+  +-- 오전: Best config retrain + 2nd model (seed=123)
+  +-- 오후: 2-model ensemble + permutation inference → 제출 #17-19
+  +-- 저녁: FINAL SUBMISSION #20 (deadline 30min 전)
 ```
 
 ---

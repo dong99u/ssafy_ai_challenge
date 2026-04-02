@@ -1,7 +1,0 @@
-{
-  "tool_name": "Read",
-  "tool_input_preview": "{\"file_path\":\"/home/dong99u/ssafy_ai_challenge/ssafy_vqa_qwen3vl_colab_h100.ipynb\",\"offset\":300,\"limit\":150}",
-  "error": "File content (20618 tokens) exceeds maximum allowed tokens (10000). Use offset and limit parameters to read specific portions of the file, or search for specific content instead of reading the whole file.",
-  "timestamp": "2026-04-02T06:42:22.942Z",
-  "retry_count": 4
-}
