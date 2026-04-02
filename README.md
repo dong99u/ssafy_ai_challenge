@@ -161,6 +161,29 @@ uv add diffusers
 uv add opencv-python
 ```
 
+### ⚠️ CUDA 환경에서 패키지 추가 시 주의사항
+
+`uv add`는 extra 지정 없이 의존성을 re-resolve하기 때문에, **실행 후 torch가 CPU 버전으로 다운그레이드될 수 있습니다.**
+
+반드시 `uv add` 후에 아래 명령어로 마무리하세요.
+
+```powershell
+# SSAFY 강의장 (CUDA 환경)
+uv add <패키지명> && uv sync --extra cu130
+
+# 개인 PC (CPU 환경)
+uv add <패키지명> && uv sync --extra cpu
+```
+
+torch가 다운그레이드된 경우 아래와 같이 롤백할 수 있습니다.
+
+```powershell
+uv remove <추가한 패키지명>
+uv sync --extra cu130
+```
+
+그 후 다시 `uv add <패키지명> && uv sync --extra cu130` 순서로 진행하세요.
+
 > ⚠️ `torch`, `torchvision`, `torchaudio`는 CUDA 인덱스 설정이 별도로 필요하므로  
 > `uv add`로 추가하지 말고, `pyproject.toml`을 직접 수정하거나 팀장에게 요청하세요.
 
