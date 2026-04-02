@@ -307,6 +307,18 @@
       "accessCount": 1,
       "lastAccessed": 1775109636290,
       "type": "directory"
+    },
+    {
+      "path": "ssafy_vqa_topscore_strategy_plan_discussion_reflected.md",
+      "accessCount": 1,
+      "lastAccessed": 1775119618911,
+      "type": "file"
+    },
+    {
+      "path": "ssafy_vqa_final_strategy.md",
+      "accessCount": 1,
+      "lastAccessed": 1775119983552,
+      "type": "file"
     }
   ],
   "userDirectives": []
