@@ -105,27 +105,27 @@
   },
   "hotPaths": [
     {
+      "path": "",
+      "accessCount": 50,
+      "lastAccessed": 1775131631025,
+      "type": "directory"
+    },
+    {
       "path": "ssafy_vqa_qwen25vl_h100_topscore_notebook_local.ipynb",
       "accessCount": 48,
       "lastAccessed": 1775110551198,
       "type": "directory"
     },
     {
-      "path": "",
-      "accessCount": 46,
-      "lastAccessed": 1775111624106,
+      "path": "ssafy_vqa_qwen3vl_h100_topscore.ipynb",
+      "accessCount": 44,
+      "lastAccessed": 1775133961414,
       "type": "directory"
     },
     {
       "path": "ssafy_vqa_qwen25vl_h100_topscore_notebook_colab.ipynb",
       "accessCount": 17,
       "lastAccessed": 1775111630910,
-      "type": "directory"
-    },
-    {
-      "path": "ssafy_vqa_qwen3vl_h100_topscore.ipynb",
-      "accessCount": 13,
-      "lastAccessed": 1775112898012,
       "type": "directory"
     },
     {
@@ -211,6 +211,18 @@
       "accessCount": 2,
       "lastAccessed": 1775109619380,
       "type": "directory"
+    },
+    {
+      "path": "ssafy_vqa_topscore_strategy_plan_discussion_reflected.md",
+      "accessCount": 2,
+      "lastAccessed": 1775130199213,
+      "type": "file"
+    },
+    {
+      "path": "ssafy_vqa_final_strategy.md",
+      "accessCount": 2,
+      "lastAccessed": 1775130199717,
+      "type": "file"
     },
     {
       "path": "train/train_0001.jpg",
@@ -307,18 +319,6 @@
       "accessCount": 1,
       "lastAccessed": 1775109636290,
       "type": "directory"
-    },
-    {
-      "path": "ssafy_vqa_topscore_strategy_plan_discussion_reflected.md",
-      "accessCount": 1,
-      "lastAccessed": 1775119618911,
-      "type": "file"
-    },
-    {
-      "path": "ssafy_vqa_final_strategy.md",
-      "accessCount": 1,
-      "lastAccessed": 1775119983552,
-      "type": "file"
     }
   ],
   "userDirectives": []
