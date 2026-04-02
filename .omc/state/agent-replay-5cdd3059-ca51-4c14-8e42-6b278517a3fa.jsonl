@@ -1,0 +1,17 @@
+{"t":0,"agent":"system","event":"keyword_detected","keyword":"ultrathink"}
+{"t":0,"agent":"system","event":"keyword_detected","keyword":"ultrathink"}
+{"t":0,"agent":"system","event":"keyword_detected","keyword":"ultrathink"}
+{"t":0,"agent":"system","event":"keyword_detected","keyword":"ralplan"}
+{"t":0,"agent":"system","event":"mode_change","mode_from":"none","mode_to":"ralplan"}
+{"t":0,"agent":"system","event":"skill_invoked","skill_name":"oh-my-claudecode:ralplan"}
+{"t":0,"agent":"a4baa49","agent_type":"planner","event":"agent_start","parent_mode":"none"}
+{"t":0,"agent":"a4baa49","agent_type":"planner","event":"agent_stop","success":true,"duration_ms":454037}
+{"t":0,"agent":"a156487","agent_type":"architect","event":"agent_start","parent_mode":"none"}
+{"t":0,"agent":"a156487","agent_type":"architect","event":"agent_stop","success":true,"duration_ms":190611}
+{"t":0,"agent":"a430959","agent_type":"critic","event":"agent_start","parent_mode":"none"}
+{"t":0,"agent":"a430959","agent_type":"critic","event":"agent_stop","success":true,"duration_ms":174773}
+{"t":0,"agent":"a771d08","agent_type":"critic","event":"agent_start","parent_mode":"none"}
+{"t":0,"agent":"a771d08","agent_type":"critic","event":"agent_stop","success":true,"duration_ms":100322}
+{"t":0,"agent":"system","event":"skill_invoked","skill_name":"oh-my-claudecode:cancel"}
+{"t":0,"agent":"system","event":"keyword_detected","keyword":"ultrathink"}
+{"t":0,"agent":"system","event":"keyword_detected","keyword":"ultrathink"}

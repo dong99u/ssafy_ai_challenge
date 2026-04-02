@@ -163,6 +163,5 @@ cython_debug/
 .idea/
 
 # train, test, dev data
-dev
-test
-train
+data
+external_data
