@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastScanned": 1775094184991,
+  "lastScanned": 1775181703945,
   "projectRoot": "/home/dong99u/ssafy_ai_challenge",
   "techStack": {
     "languages": [
@@ -33,9 +33,7 @@
   "structure": {
     "isMonorepo": false,
     "workspaces": [],
-    "mainDirectories": [
-      "test"
-    ],
+    "mainDirectories": [],
     "gitBranches": null
   },
   "customNotes": [],
@@ -44,280 +42,63 @@
       "path": "baseline",
       "purpose": null,
       "fileCount": 3,
-      "lastAccessed": 1775094184939,
+      "lastAccessed": 1775181703914,
       "keyFiles": [
         "(260320) 15기 AI 챌린지 데스크탑 환경설정.pdf",
         "(260324)_baseline_colab.ipynb",
         "(260325)_baseline_desktop5060ti.ipynb"
       ]
     },
-    "csv": {
-      "path": "csv",
-      "purpose": null,
-      "fileCount": 4,
-      "lastAccessed": 1775094184942,
-      "keyFiles": [
-        "dev.csv",
-        "sample_submission.csv",
-        "test.csv",
-        "train.csv"
-      ]
+    "data": {
+      "path": "data",
+      "purpose": "Data files",
+      "fileCount": 1,
+      "lastAccessed": 1775181703916,
+      "keyFiles": []
     },
-    "dev": {
-      "path": "dev",
+    "external_data": {
+      "path": "external_data",
       "purpose": null,
-      "fileCount": 4413,
-      "lastAccessed": 1775094184951,
-      "keyFiles": [
-        "dev_0001.jpg",
-        "dev_0002.jpg",
-        "dev_0003.jpg",
-        "dev_0004.jpg",
-        "dev_0005.jpg"
-      ]
+      "fileCount": 0,
+      "lastAccessed": 1775181703916,
+      "keyFiles": []
     },
-    "test": {
-      "path": "test",
+    "outputs": {
+      "path": "outputs",
+      "purpose": null,
+      "fileCount": 0,
+      "lastAccessed": 1775181703916,
+      "keyFiles": []
+    },
+    "data/test": {
+      "path": "data/test",
       "purpose": "Test files",
       "fileCount": 5074,
-      "lastAccessed": 1775094184959,
+      "lastAccessed": 1775181703944,
       "keyFiles": [
         "test_0001.jpg",
         "test_0002.jpg",
-        "test_0003.jpg",
-        "test_0004.jpg",
-        "test_0005.jpg"
-      ]
-    },
-    "train": {
-      "path": "train",
-      "purpose": null,
-      "fileCount": 5073,
-      "lastAccessed": 1775094184979,
-      "keyFiles": [
-        "train_0001.jpg",
-        "train_0002.jpg",
-        "train_0003.jpg",
-        "train_0004.jpg",
-        "train_0005.jpg"
+        "test_0003.jpg"
       ]
     }
   },
   "hotPaths": [
     {
-      "path": "",
-      "accessCount": 50,
-      "lastAccessed": 1775131631025,
+      "path": "ssafy_vqa_qwen3vl_h100_topscore_claude.ipynb",
+      "accessCount": 5,
+      "lastAccessed": 1775182831592,
       "type": "directory"
     },
     {
-      "path": "ssafy_vqa_qwen25vl_h100_topscore_notebook_local.ipynb",
-      "accessCount": 48,
-      "lastAccessed": 1775110551198,
+      "path": "",
+      "accessCount": 2,
+      "lastAccessed": 1775182828966,
       "type": "directory"
     },
     {
       "path": "ssafy_vqa_qwen3vl_h100_topscore.ipynb",
-      "accessCount": 44,
-      "lastAccessed": 1775133961414,
-      "type": "directory"
-    },
-    {
-      "path": "ssafy_vqa_qwen25vl_h100_topscore_notebook_colab.ipynb",
-      "accessCount": 17,
-      "lastAccessed": 1775111630910,
-      "type": "directory"
-    },
-    {
-      "path": "pyproject.toml",
-      "accessCount": 12,
-      "lastAccessed": 1775108826765,
-      "type": "file"
-    },
-    {
-      "path": ".venv/lib/python3.12/site-packages/transformers/models/qwen3_vl/modeling_qwen3_vl.py",
-      "accessCount": 11,
-      "lastAccessed": 1775109648526,
-      "type": "directory"
-    },
-    {
-      "path": "baseline/(260325)_baseline_desktop5060ti.ipynb",
-      "accessCount": 8,
-      "lastAccessed": 1775109519722,
-      "type": "file"
-    },
-    {
-      "path": "README.md",
-      "accessCount": 7,
-      "lastAccessed": 1775108731431,
-      "type": "file"
-    },
-    {
-      "path": "baseline/(260324)_baseline_colab.ipynb",
-      "accessCount": 5,
-      "lastAccessed": 1775096310600,
-      "type": "file"
-    },
-    {
-      "path": ".venv/lib/python3.12/site-packages/transformers",
-      "accessCount": 3,
-      "lastAccessed": 1775109569996,
-      "type": "directory"
-    },
-    {
-      "path": ".venv/lib/python3.12/site-packages/transformers/models/qwen2_5_vl/modeling_qwen2_5_vl.py",
-      "accessCount": 3,
-      "lastAccessed": 1775109627516,
-      "type": "directory"
-    },
-    {
-      "path": "ssafy_vqa_qwen3vl_colab_h100.ipynb",
-      "accessCount": 3,
-      "lastAccessed": 1775112179251,
-      "type": "directory"
-    },
-    {
-      "path": "csv/train.csv",
-      "accessCount": 2,
-      "lastAccessed": 1775097349255,
-      "type": "file"
-    },
-    {
-      "path": "csv/dev.csv",
-      "accessCount": 2,
-      "lastAccessed": 1775097349731,
-      "type": "file"
-    },
-    {
-      "path": ".venv/lib/python3.12/site-packages/transformers/models/qwen3_vl",
-      "accessCount": 2,
-      "lastAccessed": 1775109592814,
-      "type": "directory"
-    },
-    {
-      "path": ".venv/lib/python3.12/site-packages/transformers/models/qwen3_vl/processing_qwen3_vl.py",
-      "accessCount": 2,
-      "lastAccessed": 1775109606223,
-      "type": "file"
-    },
-    {
-      "path": ".venv/lib/python3.12/site-packages/transformers/models/qwen2_5_vl",
-      "accessCount": 2,
-      "lastAccessed": 1775109618302,
-      "type": "directory"
-    },
-    {
-      "path": ".venv/lib/python3.12/site-packages/transformers/models/auto/modeling_auto.py",
-      "accessCount": 2,
-      "lastAccessed": 1775109619380,
-      "type": "directory"
-    },
-    {
-      "path": "ssafy_vqa_topscore_strategy_plan_discussion_reflected.md",
-      "accessCount": 2,
-      "lastAccessed": 1775130199213,
-      "type": "file"
-    },
-    {
-      "path": "ssafy_vqa_final_strategy.md",
-      "accessCount": 2,
-      "lastAccessed": 1775130199717,
-      "type": "file"
-    },
-    {
-      "path": "train/train_0001.jpg",
       "accessCount": 1,
-      "lastAccessed": 1775094292239,
-      "type": "file"
-    },
-    {
-      "path": "train/train_0002.jpg",
-      "accessCount": 1,
-      "lastAccessed": 1775094292713,
-      "type": "file"
-    },
-    {
-      "path": "test/test_0001.jpg",
-      "accessCount": 1,
-      "lastAccessed": 1775094293144,
-      "type": "file"
-    },
-    {
-      "path": "dev/dev_0001.jpg",
-      "accessCount": 1,
-      "lastAccessed": 1775094293558,
-      "type": "file"
-    },
-    {
-      "path": "baseline",
-      "accessCount": 1,
-      "lastAccessed": 1775095429032,
-      "type": "directory"
-    },
-    {
-      "path": "csv/test.csv",
-      "accessCount": 1,
-      "lastAccessed": 1775096221100,
-      "type": "file"
-    },
-    {
-      "path": "csv/sample_submission.csv",
-      "accessCount": 1,
-      "lastAccessed": 1775096221380,
-      "type": "file"
-    },
-    {
-      "path": "uv.lock",
-      "accessCount": 1,
-      "lastAccessed": 1775108844946,
-      "type": "directory"
-    },
-    {
-      "path": ".venv/lib/python3.12/site-packages/transformers/models",
-      "accessCount": 1,
-      "lastAccessed": 1775108850524,
-      "type": "directory"
-    },
-    {
-      "path": ".venv/lib/python3.12/site-packages/transformers/models/auto",
-      "accessCount": 1,
-      "lastAccessed": 1775108870700,
-      "type": "directory"
-    },
-    {
-      "path": "data/csv/train.csv",
-      "accessCount": 1,
-      "lastAccessed": 1775109065591,
-      "type": "file"
-    },
-    {
-      "path": "data/csv/test.csv",
-      "accessCount": 1,
-      "lastAccessed": 1775109065758,
-      "type": "file"
-    },
-    {
-      "path": "data/csv/dev.csv",
-      "accessCount": 1,
-      "lastAccessed": 1775109169799,
-      "type": "file"
-    },
-    {
-      "path": ".venv/lib/python3.12/site-packages/transformers/models/qwen3_vl/__init__.py",
-      "accessCount": 1,
-      "lastAccessed": 1775109600572,
-      "type": "directory"
-    },
-    {
-      "path": ".venv/lib/python3.12/site-packages/transformers/models/qwen3_vl/configuration_qwen3_vl.py",
-      "accessCount": 1,
-      "lastAccessed": 1775109634495,
-      "type": "directory"
-    },
-    {
-      "path": ".venv/lib/python3.12/site-packages/transformers/models/qwen2_5_vl/configuration_qwen2_5_vl.py",
-      "accessCount": 1,
-      "lastAccessed": 1775109636290,
+      "lastAccessed": 1775182818140,
       "type": "directory"
     }
   ],
