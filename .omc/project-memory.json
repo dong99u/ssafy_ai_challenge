@@ -1,7 +1,7 @@
 {
   "version": "1.0.0",
-  "lastScanned": 1775204039724,
-  "projectRoot": "/Users/parkdongkyu/my_project/ssafy_ai_challenge",
+  "lastScanned": 1775181703945,
+  "projectRoot": "/home/dong99u/ssafy_ai_challenge",
   "techStack": {
     "languages": [
       {
@@ -34,10 +34,7 @@
     "isMonorepo": false,
     "workspaces": [],
     "mainDirectories": [],
-    "gitBranches": {
-      "defaultBranch": "main",
-      "branchingStrategy": null
-    }
+    "gitBranches": null
   },
   "customNotes": [],
   "directoryMap": {
@@ -45,7 +42,7 @@
       "path": "baseline",
       "purpose": null,
       "fileCount": 3,
-      "lastAccessed": 1775204039717,
+      "lastAccessed": 1775181703914,
       "keyFiles": [
         "(260320) 15기 AI 챌린지 데스크탑 환경설정.pdf",
         "(260324)_baseline_colab.ipynb",
@@ -55,15 +52,29 @@
     "data": {
       "path": "data",
       "purpose": "Data files",
+      "fileCount": 1,
+      "lastAccessed": 1775181703916,
+      "keyFiles": []
+    },
+    "external_data": {
+      "path": "external_data",
+      "purpose": null,
       "fileCount": 0,
-      "lastAccessed": 1775204039717,
+      "lastAccessed": 1775181703916,
+      "keyFiles": []
+    },
+    "outputs": {
+      "path": "outputs",
+      "purpose": null,
+      "fileCount": 0,
+      "lastAccessed": 1775181703916,
       "keyFiles": []
     },
     "data/test": {
       "path": "data/test",
       "purpose": "Test files",
       "fileCount": 5074,
-      "lastAccessed": 1775204039724,
+      "lastAccessed": 1775181703944,
       "keyFiles": [
         "test_0001.jpg",
         "test_0002.jpg",
@@ -71,6 +82,25 @@
       ]
     }
   },
-  "hotPaths": [],
+  "hotPaths": [
+    {
+      "path": "ssafy_vqa_qwen3vl_h100_topscore_claude.ipynb",
+      "accessCount": 5,
+      "lastAccessed": 1775182831592,
+      "type": "directory"
+    },
+    {
+      "path": "",
+      "accessCount": 2,
+      "lastAccessed": 1775182828966,
+      "type": "directory"
+    },
+    {
+      "path": "ssafy_vqa_qwen3vl_h100_topscore.ipynb",
+      "accessCount": 1,
+      "lastAccessed": 1775182818140,
+      "type": "directory"
+    }
+  ],
   "userDirectives": []
 }
