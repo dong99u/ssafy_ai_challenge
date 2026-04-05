@@ -1,0 +1,19 @@
+## 완료
+- 베이스라인(Qwen2.5-VL-3B) → H100 노트북(Qwen2.5-VL-7B) 하이퍼파라미터 튜닝
+  - 모델: 3B → 7B (H100 80GB VRAM 활용)
+  - 이미지: 384px → 672px (재활용 이미지 세부 특징 인식 향상)
+  - LoRA: r=8/alpha=16 → r=64/alpha=128 (fine-tuning 용량 증가, 비율 1:2 유지)
+  - LR: 1e-4 → 1e-5 (큰 LoRA rank 보상, 학습 안정화)
+  - Epoch: 1 → 3 + cosine scheduler (underfitting 방지, 부드러운 수렴)
+  - FULL_DATA_MODE: train+dev 전체 데이터 학습, early stopping 비활성(patience=999)
+  - 앙상블용 Model B 추가 (seed=123, lr=5e-5)
+
+## 진행 중
+- 없음
+
+## 남은 것
+- 실험 결과 기록 체계 구축 (experiments.json)
+- 추가 하이퍼파라미터 실험 시 변경 근거 기록
+
+## 이슈
+- 이전 대화의 하이퍼파라미터 변경 근거가 기록되지 않았음 → 이번 세션부터 기록 시작

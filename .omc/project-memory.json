@@ -73,21 +73,27 @@
   },
   "hotPaths": [
     {
+      "path": "ssafy_vqa_h100_top1.ipynb",
+      "accessCount": 27,
+      "lastAccessed": 1775368054242,
+      "type": "file"
+    },
+    {
       "path": "",
       "accessCount": 16,
       "lastAccessed": 1775309515295,
       "type": "directory"
     },
     {
-      "path": "ssafy_vqa_h100_top1.ipynb",
-      "accessCount": 16,
-      "lastAccessed": 1775354398587,
-      "type": "file"
-    },
-    {
       "path": "baseline/(260325)_baseline_desktop5060ti.ipynb",
       "accessCount": 15,
       "lastAccessed": 1775354414064,
+      "type": "file"
+    },
+    {
+      "path": "experiments.json",
+      "accessCount": 10,
+      "lastAccessed": 1775368017355,
       "type": "file"
     },
     {
@@ -112,6 +118,12 @@
       "path": "README.md",
       "accessCount": 3,
       "lastAccessed": 1775306139330,
+      "type": "file"
+    },
+    {
+      "path": "claude-progress.txt",
+      "accessCount": 2,
+      "lastAccessed": 1775368017406,
       "type": "file"
     },
     {
