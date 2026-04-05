@@ -1,7 +1,7 @@
 {
   "version": "1.0.0",
-  "lastScanned": 1775181703945,
-  "projectRoot": "/home/dong99u/ssafy_ai_challenge",
+  "lastScanned": 1775301473698,
+  "projectRoot": "/Users/parkdongkyu/my_project/ssafy_ai_challenge",
   "techStack": {
     "languages": [
       {
@@ -34,7 +34,10 @@
     "isMonorepo": false,
     "workspaces": [],
     "mainDirectories": [],
-    "gitBranches": null
+    "gitBranches": {
+      "defaultBranch": "main",
+      "branchingStrategy": null
+    }
   },
   "customNotes": [],
   "directoryMap": {
@@ -42,7 +45,7 @@
       "path": "baseline",
       "purpose": null,
       "fileCount": 3,
-      "lastAccessed": 1775181703914,
+      "lastAccessed": 1775301473671,
       "keyFiles": [
         "(260320) 15기 AI 챌린지 데스크탑 환경설정.pdf",
         "(260324)_baseline_colab.ipynb",
@@ -52,29 +55,15 @@
     "data": {
       "path": "data",
       "purpose": "Data files",
-      "fileCount": 1,
-      "lastAccessed": 1775181703916,
-      "keyFiles": []
-    },
-    "external_data": {
-      "path": "external_data",
-      "purpose": null,
       "fileCount": 0,
-      "lastAccessed": 1775181703916,
-      "keyFiles": []
-    },
-    "outputs": {
-      "path": "outputs",
-      "purpose": null,
-      "fileCount": 0,
-      "lastAccessed": 1775181703916,
+      "lastAccessed": 1775301473673,
       "keyFiles": []
     },
     "data/test": {
       "path": "data/test",
       "purpose": "Test files",
       "fileCount": 5074,
-      "lastAccessed": 1775181703944,
+      "lastAccessed": 1775301473698,
       "keyFiles": [
         "test_0001.jpg",
         "test_0002.jpg",
@@ -84,21 +73,63 @@
   },
   "hotPaths": [
     {
-      "path": "ssafy_vqa_qwen3vl_h100_topscore_claude.ipynb",
-      "accessCount": 5,
-      "lastAccessed": 1775182831592,
-      "type": "directory"
-    },
-    {
       "path": "",
-      "accessCount": 2,
-      "lastAccessed": 1775182828966,
+      "accessCount": 16,
+      "lastAccessed": 1775309515295,
       "type": "directory"
     },
     {
-      "path": "ssafy_vqa_qwen3vl_h100_topscore.ipynb",
+      "path": "ssafy_vqa_h100_top1.ipynb",
+      "accessCount": 16,
+      "lastAccessed": 1775354398587,
+      "type": "file"
+    },
+    {
+      "path": "baseline/(260325)_baseline_desktop5060ti.ipynb",
+      "accessCount": 15,
+      "lastAccessed": 1775354414064,
+      "type": "file"
+    },
+    {
+      "path": "CLAUDE.md",
+      "accessCount": 8,
+      "lastAccessed": 1775308698709,
+      "type": "file"
+    },
+    {
+      "path": "baseline",
+      "accessCount": 8,
+      "lastAccessed": 1775308752784,
+      "type": "directory"
+    },
+    {
+      "path": "pyproject.toml",
+      "accessCount": 4,
+      "lastAccessed": 1775307927598,
+      "type": "file"
+    },
+    {
+      "path": "README.md",
+      "accessCount": 3,
+      "lastAccessed": 1775306139330,
+      "type": "file"
+    },
+    {
+      "path": ".python-version",
       "accessCount": 1,
-      "lastAccessed": 1775182818140,
+      "lastAccessed": 1775304676742,
+      "type": "file"
+    },
+    {
+      "path": "baseline/(260324)_baseline_colab.ipynb",
+      "accessCount": 1,
+      "lastAccessed": 1775304683328,
+      "type": "file"
+    },
+    {
+      "path": "data/csv",
+      "accessCount": 1,
+      "lastAccessed": 1775307918408,
       "type": "directory"
     }
   ],

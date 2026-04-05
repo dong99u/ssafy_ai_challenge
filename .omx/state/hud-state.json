@@ -1,5 +1,0 @@
-{
-  "last_turn_at": "2026-04-02T17:47:41.298Z",
-  "turn_count": 5,
-  "last_agent_output": "괜찮습니다. 핵심은 `Pillow`를 직접 건드리지 않는 겁니다. 이 노트북은 `PIL.Image.open`, `.convert`, `Image.MAX_IMAGE_PIXELS` 정"
-}

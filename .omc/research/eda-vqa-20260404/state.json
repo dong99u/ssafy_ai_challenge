@@ -1,0 +1,16 @@
+{
+  "id": "eda-vqa-20260404",
+  "goal": "SSAFY Recycling VQA EDA for 0.87→0.93+ accuracy improvement",
+  "status": "in_progress",
+  "mode": "standard",
+  "iteration": 1,
+  "maxIterations": 10,
+  "stages": [
+    {"id": 1, "name": "Answer bias + question type distribution", "tier": "MEDIUM", "status": "pending"},
+    {"id": 2, "name": "Dev set IAA + pseudo-label quality", "tier": "MEDIUM", "status": "pending"},
+    {"id": 3, "name": "Image characteristics analysis", "tier": "LOW", "status": "pending"},
+    {"id": 4, "name": "Train vs Dev vs Test distribution comparison", "tier": "MEDIUM", "status": "pending"},
+    {"id": 5, "name": "Question NLP analysis", "tier": "MEDIUM", "status": "pending"}
+  ],
+  "createdAt": "2026-04-04T12:45:00Z"
+}
