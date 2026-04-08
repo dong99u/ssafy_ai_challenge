@@ -167,6 +167,10 @@ data
 external_data
 checkpoints
 
-submission_model_a.csv
-submission.csv
-submission_tta.csv
+aggressive_final.ipynb
+final.ipynb
+internvl_finetune.ipynb
+zero_shot_72b.ipynb
+.omc
+.omx
+state
